@@ -1,35 +1,47 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from "react";
+import FormularioLogin from "./components/FormularioLogin";
+import FormularioUsuario from "./components/FormularioUsuario";
+import Header from "./components/Header";
+import Saludo from "./components/Saludo";
+import Tarjeta from "./components/Tarjeta";
 
-function App() {
-  const [count, setCount] = useState(0)
-
+const App = () => {
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div className="min-h-screen bg-gray-300">
+      <Header />
+      <main className="container bg-gray-100 mx-auto p-4">
+        <Saludo nombre="Carlos" edad={23} />
+        <Saludo nombre="Luis" edad={43} />
+        <Saludo nombre="Sara" edad={13} />
+        <Saludo nombre="Mario" edad={20} />
+        <div className="mt-8 grid grid-cols1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <Tarjeta
+            title="React 19"
+            description="Última versión de la librería React para JavaScript"
+            image="https://images.unsplash.com/photo-1633356122102-3fe601e05bd2?q=80&w=400"
+          />
+          <Tarjeta
+            title="React 19"
+            description="Última versión de la librería React para JavaScript"
+            image="https://images.unsplash.com/photo-1633356122102-3fe601e05bd2?q=80&w=400"
+            favorite={true}
+          />
+          <Tarjeta
+            title="React 19"
+            description="Última versión de la librería React para JavaScript"
+            favorite={true}
+          />
+          <Tarjeta
+            title="Javascript"
+            description="Lenguaje de programación para desarrollo web"
+            image="https://images.unsplash.com/photo-1579468118864-1b9ea3c0db4a?q=80&w=400"
+          />
+        </div>
+        <FormularioUsuario />
+        <FormularioLogin />
+      </main>
+    </div>
+  );
+};
 
-export default App
+export default App;
