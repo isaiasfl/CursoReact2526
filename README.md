@@ -8,10 +8,10 @@
 
 Este curso se centra en el uso de herramientas modernas para construir interfaces de usuario rápidas y robustas:
 
-- **React 19** ⚛️: Aprovechando las nuevas APIs, `Suspense`, y mejoras de rendimiento.
-- **TypeScript** 📘: Tipado estático para un desarrollo más seguro y escalable.
-- **Tailwind CSS 4** 🎨: Estilizado eficiente y moderno con utilidades de bajo nivel.
-- **Vite** ⚡: Bundler ultra rápido para una experiencia de desarrollo fluida.
+- **React 19** ⚛️: Implementación de nuevas APIs como el hook `use()`, mejor soporte para `Suspense` y transiciones optimizadas.
+- **TypeScript 5.x** 📘: Tipado estático avanzado, interfaces y tipos genéricos para una arquitectura robusta.
+- **Tailwind CSS 4** 🎨: Uso del nuevo motor Oxide, configuración basada en CSS y el plugin oficial para Vite que elimina la necesidad de pasos de compilación pesados.
+- **Vite 6** ⚡: Bundling de última generación para un HMR (Hot Module Replacement) instantáneo.
 
 ---
 
@@ -21,25 +21,23 @@ El repositorio está organizado por sesiones para facilitar el seguimiento del a
 
 ### 📗 [Sesión 01](./sesion-01) - Fundamentos y UI
 
-- Introducción a React 19 y configuración con Vite.
-- Creación de componentes funcionales.
-- Uso de **Props** y comunicación entre componentes.
-- Maquetación básica con **Tailwind CSS**.
-- Implementación de formularios y tarjetas de usuario.
+- **Setup Moderno**: Configuración de React 19 con Vite y Tailwind 4.
+- **Componentes**: Creación de componentes funcionales y estructuración de UI.
+- **Props**: Comunicación unidireccional y tipado de propiedades con TypeScript.
+- **Tailwind 4 Utilities**: Aplicación de clases de utilidad para diseño responsivo.
 
-### 📘 [Sesión 02](./sesion-02) - Hooks Esenciales
+### 📘 [Sesión 02](./sesion-02) - Hooks y Estado
 
-- Gestión del estado con `useState`.
-- Ciclo de vida y efectos secundarios con `useEffect`.
-- Organización del proyecto en carpetas (`hooks`, `pages`, `utils`).
-- Conceptos fundamentales de reactividad.
+- **useState**: Manejo de estados locales y reactividad.
+- **useEffect**: Gestión de efectos secundarios y limpieza de suscripciones.
+- **Estructura de Carpeta**: Organización profesional (`hooks`, `pages`, `utils`).
 
-### 📙 [Sesión 03](./sesion-03) - Datos y Optimización
+### 📙 [Sesión 03](./sesion-03) - React 19 y Asincronía
 
-- Consumo de APIs externas.
-- Nuevas funcionalidades de **React 19**: `Suspense` y manejo de promesas.
-- Creación de **Hooks Personalizados** (`useFetch`).
-- Manejo de estados de carga (`LoadingFallback`) y búsquedas interactivas.
+- **Hook `use()`**: Consumo nativo de promesas dentro del ciclo de renderizado.
+- **Suspense & Error Boundaries**: Manejo elegante de estados de carga y errores.
+- **Custom Hooks**: Abstracción de lógica con `useFetch` tipado.
+- **Modern Data Fetching**: Arquitectura de carga de datos sin `useEffect` para promesas.
 
 ---
 
