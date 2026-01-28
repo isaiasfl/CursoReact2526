@@ -26,6 +26,7 @@ export function useFetch<T>(url: string) {
           throw new Error("Error en la petición");
         }
         const result = await response.json();
+        setError(null)
         setData(result);
       } catch (error: unknown) {
         setError(error as Error);

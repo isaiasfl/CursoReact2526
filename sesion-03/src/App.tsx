@@ -1,4 +1,4 @@
-import React, { Suspense, useState } from "react";
+import { Suspense, useState } from "react";
 import BuscarPlato from "./components/BuscarPlato";
 import Header from "./components/Header";
 import LoadingFallback from "./components/LoadingFallback";
@@ -15,14 +15,14 @@ const App = () => {
       <div className="max-w-7xl mx-auto">
         <Header />
         <main>
-          <Suspense
-            fallback={
-              <LoadingFallback message="Cocinando platos para ti... 🍽️" />
-            }
-          >
-            <BuscarPlato />
-            <PlatosList platosPromise={platosPromise} />
-          </Suspense>
+            <Suspense
+              fallback={
+                <LoadingFallback message="Cocinando platos para ti... 🍽️" />
+              }
+            >
+              <BuscarPlato />
+              <PlatosList platosPromise={platosPromise} />
+            </Suspense>
         </main>
       </div>
     </div>
