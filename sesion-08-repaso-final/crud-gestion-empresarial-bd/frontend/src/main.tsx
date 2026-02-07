@@ -1,12 +1,18 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import { Toaster } from "sonner";
 import CompanyForm from "./components/companies/CompanyForm";
+import { CompaniesProvider } from "./context/CompaniesContext";
 import "./index.css";
 
 // cambio por cada ejercicio el valor de App
-const App = CompanyForm;
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <App />
+    <CompaniesProvider>
+      <div className="container mx-auto mt-10 px-4">
+        <CompanyForm />
+      </div>
+      <Toaster position="top-right" richColors />
+    </CompaniesProvider>
   </StrictMode>,
 );
