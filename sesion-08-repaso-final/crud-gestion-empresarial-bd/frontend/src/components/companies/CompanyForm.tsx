@@ -13,7 +13,7 @@ const CompanyForm = () => {
 
   // funcion para manejar el envío
   const formAction = async (
-    _prevState: FormState,
+    _prev: FormState,
     formData: FormData,
   ): Promise<FormState> => {
     const name = formData.get("name")?.toString().trim() || "";
@@ -126,7 +126,7 @@ const CompanyForm = () => {
         </div>
 
         {/* ----------------- Sección Lista -------------------- */}
-        <div className="border-t border-gray-100 pt-12">
+        {/* <div className="border-t border-gray-100 pt-12">
           <div className="flex items-center justify-between mb-8 px-4">
             <h2 className="text-2xl font-bold text-gray-800">
               Listado de Empresas
@@ -136,7 +136,7 @@ const CompanyForm = () => {
             </span>
           </div>
           <CompanyList />
-        </div>
+        </div> */}
       </div>
     </div>
   );

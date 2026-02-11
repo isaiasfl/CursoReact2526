@@ -1,8 +1,9 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
 import { Toaster } from "sonner";
-import LoginForm from "./components/auth/LoginForm";
-import CompanyForm from "./components/companies/CompanyForm";
+import AppFull from "./apps/AppFull";
+
 import { AuthProvider } from "./context/AuthContext";
 import { CompaniesProvider } from "./context/CompaniesContext";
 import "./index.css";
@@ -12,7 +13,9 @@ createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <AuthProvider>
       <CompaniesProvider>
-        <LoginForm />
+        <BrowserRouter>
+          <AppFull />
+        </BrowserRouter>
         <Toaster position="top-right" richColors />
       </CompaniesProvider>
     </AuthProvider>
