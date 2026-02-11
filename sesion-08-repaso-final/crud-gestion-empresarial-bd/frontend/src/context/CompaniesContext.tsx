@@ -1,12 +1,20 @@
-import { createContext, useState, useEffect, ReactNode } from "react";
+/**
+ * CONTEXTO DE EMPRESAS
+ *
+ * ¿Que hace? Almacena la lista de empresas en un estado global
+ * y ofrece funciones CRUD (crear, leer, actualizar, eliminar).
+ *
+ * Patron: cada funcion CRUD hace 2 cosas:
+ *   1. Llama al backend (companiesAPI.create, .update, .delete)
+ *   2. Actualiza el estado local (setCompanies) para que la UI se re-renderice
+ *
+ * ¿Por que actualizar el estado local en vez de volver a pedir todo al backend?
+ * Porque es mas rapido. La UI se actualiza al instante sin esperar otra peticion.
+ */
+import { createContext, useState, useEffect, type ReactNode } from "react";
 import { toast } from "sonner";
 import { companiesAPI } from "../services/api";
 import type { Company, CreateCompanyDTO, UpdateCompanyDTO } from "../types";
-
-/**
- * Context para manejar el estado global de empresas
- * Incluye funciones para CRUD y estado de loading/error
- */
 
 export interface CompaniesContextType {
   companies: Company[];
@@ -30,7 +38,7 @@ export function CompaniesProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Obtener todas las empresas
+  // LEER - Pide todas las empresas al backend
   const fetchCompanies = async () => {
     setLoading(true);
     setError(null);
@@ -47,12 +55,13 @@ export function CompaniesProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  // Crear empresa
+  // CREAR - Envia al backend y añade al inicio del array local
   const createCompany = async (
     data: CreateCompanyDTO,
   ): Promise<Company | null> => {
     try {
       const response = await companiesAPI.create(data);
+      // [nueva, ...anteriores] → la nueva aparece primera en la lista
       setCompanies((prev) => [response.company, ...prev]);
       toast.success(response.message || "Empresa creada");
       return response.company;
@@ -64,13 +73,14 @@ export function CompaniesProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  // Actualizar empresa
+  // ACTUALIZAR - Envia al backend y reemplaza en el array local
   const updateCompany = async (
     id: number,
     data: UpdateCompanyDTO,
   ): Promise<Company | null> => {
     try {
       const response = await companiesAPI.update(id, data);
+      // .map recorre el array: si encuentra la empresa con ese id, la reemplaza
       setCompanies((prev) =>
         prev.map((c) => (c.id === id ? response.company : c)),
       );
@@ -84,10 +94,11 @@ export function CompaniesProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  // Eliminar empresa
+  // ELIMINAR - Envia al backend y la quita del array local
   const deleteCompany = async (id: number): Promise<boolean> => {
     try {
       const response = await companiesAPI.delete(id);
+      // .filter devuelve un nuevo array SIN la empresa eliminada
       setCompanies((prev) => prev.filter((c) => c.id !== id));
       toast.success(response.message || "Empresa eliminada");
       return true;
@@ -99,7 +110,8 @@ export function CompaniesProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  // Cargar empresas al montar el componente
+  // useEffect con [] = se ejecuta UNA vez al montar.
+  // "Cuando este componente aparece, carga las empresas del backend"
   useEffect(() => {
     fetchCompanies();
   }, []);
