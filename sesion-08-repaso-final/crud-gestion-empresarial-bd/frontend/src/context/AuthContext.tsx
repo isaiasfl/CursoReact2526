@@ -8,29 +8,33 @@
  * usuario esta logueado (Navbar, ProtectedRoute, paginas...).
  * Sin Context tendriamos que pasar props por muchos niveles (prop drilling).
  */
-import { createContext, useState, useEffect, type ReactNode } from 'react';
-import { toast } from 'sonner';
-import { authAPI } from '../services/api';
-import type { User, RegisterDTO, LoginDTO } from '../types';
+import { createContext, useEffect, useState, type ReactNode } from "react";
+import { toast } from "sonner";
+import { authAPI } from "../services/api";
+import type { LoginDTO, RegisterDTO, User } from "../types";
 
 // QUE datos y funciones ofrece este contexto
 export interface AuthContextType {
-  user: User | null;          // Datos del usuario (null = no logueado)
-  token: string | null;       // Token JWT (null = no logueado)
-  loading: boolean;           // true mientras verificamos sesion al arrancar
-  isAuthenticated: boolean;   // true si hay usuario logueado
+  user: User | null; // Datos del usuario (null = no logueado)
+  token: string | null; // Token JWT (null = no logueado)
+  loading: boolean; // true mientras verificamos sesion al arrancar
+  isAuthenticated: boolean; // true si hay usuario logueado
   login: (data: LoginDTO) => Promise<boolean>;
   register: (data: RegisterDTO) => Promise<boolean>;
   logout: () => void;
   checkAuth: () => Promise<void>;
 }
 
-export const AuthContext = createContext<AuthContextType | undefined>(undefined);
+export const AuthContext = createContext<AuthContextType | undefined>(
+  undefined,
+);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   // Leemos token de localStorage al iniciar → si el usuario recarga, sigue ahi
-  const [token, setToken] = useState<string | null>(() => localStorage.getItem('token'));
+  const [token, setToken] = useState<string | null>(() =>
+    localStorage.getItem("token"),
+  );
   // loading = true al inicio para evitar un "flash" de redireccion a /login
   // mientras verificamos si el token guardado sigue siendo valido
   const [loading, setLoading] = useState(true);
@@ -40,11 +44,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const response = await authAPI.login(data);
       setUser(response.user);
       setToken(response.token);
-      localStorage.setItem('token', response.token);
-      toast.success(response.message || 'Login exitoso');
+      localStorage.setItem("token", response.token);
+      toast.success(response.message || "Login exitoso");
       return true;
     } catch (err) {
-      const message = err instanceof Error ? err.message : 'Error al iniciar sesion';
+      const message =
+        err instanceof Error ? err.message : "Error al iniciar sesion";
       toast.error(message);
       return false;
     }
@@ -55,11 +60,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const response = await authAPI.register(data);
       setUser(response.user);
       setToken(response.token);
-      localStorage.setItem('token', response.token);
-      toast.success(response.message || 'Registro exitoso');
+      localStorage.setItem("token", response.token);
+      toast.success(response.message || "Registro exitoso");
       return true;
     } catch (err) {
-      const message = err instanceof Error ? err.message : 'Error al registrarse';
+      const message =
+        err instanceof Error ? err.message : "Error al registrarse";
       toast.error(message);
       return false;
     }
@@ -68,8 +74,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const logout = () => {
     setUser(null);
     setToken(null);
-    localStorage.removeItem('token');
-    toast.success('Sesion cerrada');
+    localStorage.removeItem("token");
+    toast.success("Sesion cerrada");
   };
 
   // checkAuth: verifica si el token de localStorage sigue siendo valido
@@ -95,24 +101,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     checkAuth();
   }, []);
 
-  return (
-    <AuthContext.Provider
-      value={{
-        user,
-        token,
-        loading,
-        // !!user convierte objeto a boolean:
-        //   user = null   → !!null = false  (no autenticado)
-        //   user = {..}   → !!obj  = true   (autenticado)
-        // Es lo mismo que: user !== null
-        isAuthenticated: !!user,
-        login,
-        register,
-        logout,
-        checkAuth,
-      }}
-    >
-      {children}
-    </AuthContext.Provider>
-  );
+  const value = {
+    user,
+    token,
+    loading,
+    // !!user convierte objeto a boolean:
+    //   user = null   → !!null = false  (no autenticado)
+    //   user = {..}   → !!obj  = true   (autenticado)
+    // Es lo mismo que: user !== null
+    isAuthenticated: !!user,
+    login,
+    register,
+    logout,
+    checkAuth,
+  };
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
