@@ -1,0 +1,75 @@
+@import "tailwindcss";
+
+/* ========== CLASES DE UTILIDAD ========== */
+
+/* Botones */
+.btn {
+  @apply px-4 py-2 rounded-lg font-medium transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed;
+}
+
+.btn-primary {
+  @apply bg-indigo-600 text-white hover:bg-indigo-700;
+}
+
+.btn-secondary {
+  @apply bg-gray-200 text-gray-700 hover:bg-gray-300;
+}
+
+.btn-danger {
+  @apply bg-red-500 text-white hover:bg-red-600;
+}
+
+.btn-icon {
+  @apply p-2 rounded-full transition-colors;
+}
+
+/* Tarjetas */
+.card {
+  @apply bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow;
+}
+
+/* Inputs */
+.input {
+  @apply w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent;
+}
+
+.label {
+  @apply block text-sm font-medium text-gray-700 mb-1;
+}
+
+/* Layout */
+.page-container {
+  @apply max-w-6xl mx-auto px-4 py-8;
+}
+
+.page-title {
+  @apply text-3xl font-bold text-gray-800 mb-6;
+}
+
+/* Badges/chips para categorias */
+.badge {
+  @apply inline-block px-3 py-1 text-sm font-medium rounded-full;
+}
+
+.badge-category {
+  @apply bg-indigo-100 text-indigo-700;
+}
+
+.badge-active {
+  @apply bg-indigo-600 text-white;
+}
+
+/* Contenedor de error */
+.error-container {
+  @apply flex flex-col items-center justify-center py-20 text-center;
+}
+
+/* Grid de libros */
+.books-grid {
+  @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6;
+}
+
+/* Estado vacio */
+.empty-state {
+  @apply text-center py-16 text-gray-500;
+}
